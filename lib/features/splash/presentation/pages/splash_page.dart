@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:soccer_life/core/app/router/app_routes.dart';
+import 'package:soccer_life/core/constants/app_constants.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -66,7 +67,7 @@ class _SplashPageState extends State<SplashPage>
                   Icon(Icons.sports_soccer, size: 80),
                   const SizedBox(height: 16),
                   Text(
-                    'Soccer Life',
+                    AppConstants.appName,
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                   ),
                 ],
