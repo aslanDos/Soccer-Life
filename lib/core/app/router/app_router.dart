@@ -38,7 +38,7 @@ class AppRouter {
               GoRoute(
                 path: AppRoutes.schedule,
                 pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: SchedulePage()),
+                    NoTransitionPage(child: SchedulePage()),
               ),
             ],
           ),
