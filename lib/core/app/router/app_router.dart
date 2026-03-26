@@ -29,7 +29,7 @@ class AppRouter {
               GoRoute(
                 path: AppRoutes.home,
                 pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: HomePage()),
+                    NoTransitionPage(child: HomePage()),
               ),
             ],
           ),

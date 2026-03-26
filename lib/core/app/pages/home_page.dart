@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:soccer_life/core/shared/widgets/custom_appbar_widget.dart';
+import 'package:soccer_life/core/shared/widgets/drawer/drawer.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Center(child: Text('Home')));
+    return Scaffold(
+      key: scaffoldKey,
+      drawer: const AppDrawer(),
+      appBar: CustomAppBar(
+        leading: Icon(Ionicons.menu),
+        onLeadingTap: () {
+          scaffoldKey.currentState?.openDrawer();
+        },
+        trailing: Icon(Ionicons.notifications),
+      ),
+      body: Container(child: Center(child: Text('Home'))),
+    );
   }
 }
