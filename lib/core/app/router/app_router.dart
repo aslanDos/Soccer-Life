@@ -3,6 +3,7 @@ import 'package:soccer_life/core/app/pages/home_page.dart';
 import 'package:soccer_life/core/app/pages/schedule_page.dart';
 import 'package:soccer_life/core/app/router/app_routes.dart';
 import 'package:soccer_life/core/app/shell/main_shell.dart';
+import 'package:soccer_life/features/favorites/presentation/pages/favorites_page.dart';
 import 'package:soccer_life/features/splash/presentation/pages/splash_page.dart';
 
 class AppRouter {
@@ -30,6 +31,10 @@ class AppRouter {
                 path: AppRoutes.home,
                 pageBuilder: (context, state) =>
                     NoTransitionPage(child: HomePage()),
+              ),
+              GoRoute(
+                path: AppRoutes.favorites,
+                builder: (context, state) => FavoritesPage(),
               ),
             ],
           ),

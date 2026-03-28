@@ -21,7 +21,7 @@ class AppColorScheme {
 
     surfaceContainer: AppColors.white,
 
-    outline: AppColors.black4,
+    outline: AppColors.black5,
   );
 
   static const ColorScheme dark = ColorScheme(
