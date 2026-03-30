@@ -12,8 +12,6 @@ class AppTheme {
   static final ThemeData dark = _buildTheme(AppColorScheme.dark);
 
   static ThemeData _buildTheme(ColorScheme colorScheme) {
-    final bool isDark = colorScheme.brightness == Brightness.dark;
-
     final TextTheme textTheme = appTextTheme.apply(
       fontFamily: fontFamily,
       bodyColor: colorScheme.onSurface,
@@ -27,6 +25,7 @@ class AppTheme {
       textTheme: textTheme,
       colorScheme: colorScheme,
       brightness: colorScheme.brightness,
+      highlightColor: Colors.transparent,
     );
   }
 }

@@ -16,7 +16,13 @@ List<DrawerSection> buildDrawerSections(BuildContext context) {
             context.push(AppRoutes.favorites);
           },
         ),
-        DrawerItem(title: 'Leagues', icon: Icons.emoji_events, onTap: () {}),
+        DrawerItem(
+          title: 'Leagues',
+          icon: Icons.emoji_events,
+          onTap: () {
+            context.push(AppRoutes.leagues);
+          },
+        ),
       ],
     ),
     DrawerSection(

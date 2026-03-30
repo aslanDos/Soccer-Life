@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:soccer_life/core/shared/widgets/custom_appbar_widget.dart';
 import 'package:soccer_life/features/favorites/presentation/widgets/favorites_tab.dart';
 
 class FavoritesPage extends StatelessWidget {
