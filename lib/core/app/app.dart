@@ -4,6 +4,7 @@ import 'package:soccer_life/core/app/router/app_router.dart';
 import 'package:soccer_life/core/constants/app_constants.dart';
 import 'package:soccer_life/core/di/dependency_injection.dart';
 import 'package:soccer_life/core/shared/theme/app_theme.dart';
+import 'package:soccer_life/features/favorites/presentation/provider/favorite_leagues_provider.dart';
 import 'package:soccer_life/features/players/presentation/provider/players_provider.dart';
 
 class SoccerLifeApp extends StatelessWidget {
@@ -14,6 +15,7 @@ class SoccerLifeApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<PlayersProvider>(create: (_) => di<PlayersProvider>()),
+        ChangeNotifierProvider<FavoriteLeaguesProvider>(create: (_) => di<FavoriteLeaguesProvider>()),
       ],
       child: MaterialApp.router(
         title: AppConstants.appName,

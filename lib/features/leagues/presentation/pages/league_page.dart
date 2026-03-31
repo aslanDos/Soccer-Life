@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
+import 'package:soccer_life/features/favorites/presentation/provider/favorite_leagues_provider.dart';
 import 'package:soccer_life/features/leagues/domain/entity/league_entity.dart';
 import 'package:soccer_life/features/leagues/presentation/widgets/league_header.dart';
 import 'package:soccer_life/features/leagues/presentation/widgets/league_tab.dart';
@@ -21,6 +23,20 @@ class LeaguePage extends StatelessWidget {
             icon: const Icon(Ionicons.arrow_back),
             onPressed: () => context.pop(),
           ),
+          actions: [
+            Consumer<FavoriteLeaguesProvider>(
+              builder: (context, favs, _) => IconButton(
+                icon: Icon(
+                  favs.isFavorite(league.id)
+                      ? Ionicons.star
+                      : Ionicons.star_outline,
+                  color: favs.isFavorite(league.id) ? Colors.amber : null,
+                ),
+                onPressed: () =>
+                    context.read<FavoriteLeaguesProvider>().toggle(league),
+              ),
+            ),
+          ],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

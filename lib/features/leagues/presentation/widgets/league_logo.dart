@@ -6,12 +6,21 @@ class LeagueLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      logoUrl,
-      width: 70,
-      height: 70,
-      fit: BoxFit.contain,
-      errorBuilder: (_, _, _) => const Icon(Icons.sports_soccer, size: 80),
+    final theme = Theme.of(context);
+
+    return Container(
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Image.network(
+        logoUrl,
+        width: 70,
+        height: 70,
+        fit: BoxFit.contain,
+        errorBuilder: (_, _, _) => const Icon(Icons.sports_soccer, size: 80),
+      ),
     );
   }
 }

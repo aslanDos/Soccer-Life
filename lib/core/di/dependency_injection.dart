@@ -11,6 +11,7 @@ import 'package:soccer_life/features/leagues/domain/repository/league_repository
 import 'package:soccer_life/features/leagues/domain/usecases/get_countries_usecase.dart';
 import 'package:soccer_life/features/leagues/domain/usecases/get_leagues_usecase.dart';
 import 'package:soccer_life/features/leagues/domain/usecases/get_standings_usecase.dart';
+import 'package:soccer_life/features/favorites/presentation/provider/favorite_leagues_provider.dart';
 import 'package:soccer_life/features/leagues/presentation/provider/countries_provider.dart';
 import 'package:soccer_life/features/leagues/presentation/provider/leagues_provider.dart';
 import 'package:soccer_life/features/leagues/presentation/provider/standings_provider.dart';
@@ -67,5 +68,8 @@ Future<void> init() async {
   );
   di.registerFactory<StandingsProvider>(
     () => StandingsProvider(di<GetStandingsUsecase>()),
+  );
+  di.registerLazySingleton<FavoriteLeaguesProvider>(
+    () => FavoriteLeaguesProvider(),
   );
 }
