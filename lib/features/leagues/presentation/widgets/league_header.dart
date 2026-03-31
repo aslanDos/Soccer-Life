@@ -27,9 +27,11 @@ class LeagueHeader extends StatelessWidget {
 
           Expanded(
             child: LeagueInfo(
+              leagueId: league.id,
               name: league.name,
               country: league.countryName,
               season: league.season,
+              seasons: league.seasons,
             ),
           ),
         ],

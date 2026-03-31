@@ -142,7 +142,7 @@ class _MatchRow extends StatelessWidget {
             teamName: fixture.home.name,
             goals: fixture.goalsHome!,
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           FixtureTeam(
             logoUrl: fixture.away.logo,
             teamName: fixture.away.name,
@@ -151,37 +151,6 @@ class _MatchRow extends StatelessWidget {
         ],
       ),
     );
-
-    // return Padding(
-    //   padding: const EdgeInsets.all(12),
-    //   child: Row(
-    //     children: [
-    //       _Logo(url: fixture.home.logo),
-    //       const SizedBox(width: 8),
-    //       Expanded(
-    //         child: Text(
-    //           fixture.home.name,
-    //           style: theme.textTheme.bodySmall,
-    //           overflow: TextOverflow.ellipsis,
-    //         ),
-    //       ),
-    //       Padding(
-    //         padding: const EdgeInsets.symmetric(horizontal: 8),
-    //         child: _Center(fixture: fixture),
-    //       ),
-    //       Expanded(
-    //         child: Text(
-    //           fixture.away.name,
-    //           style: theme.textTheme.bodySmall,
-    //           textAlign: TextAlign.end,
-    //           overflow: TextOverflow.ellipsis,
-    //         ),
-    //       ),
-    //       const SizedBox(width: 8),
-    //       _Logo(url: fixture.away.logo),
-    //     ],
-    //   ),
-    // );
   }
 }
 
@@ -235,76 +204,3 @@ class _Logo extends StatelessWidget {
   }
 }
 
-class _Center extends StatelessWidget {
-  final FixtureEntity fixture;
-  const _Center({required this.fixture});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final bold = theme.textTheme.bodySmall?.copyWith(
-      fontWeight: FontWeight.bold,
-      color: theme.colorScheme.primary,
-    );
-
-    switch (fixture.status) {
-      case FixtureStatus.finished:
-        return Text(
-          '${fixture.goalsHome ?? 0}  ${fixture.goalsAway ?? 0}',
-          style: bold,
-        );
-      case FixtureStatus.live:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "${fixture.elapsed}'",
-              style: theme.textTheme.labelSmall?.copyWith(color: Colors.green),
-            ),
-            Text(
-              '${fixture.goalsHome ?? 0}:${fixture.goalsAway ?? 0}',
-              style: bold,
-            ),
-          ],
-        );
-      case FixtureStatus.notStarted:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(_dateLine(fixture.date), style: theme.textTheme.labelSmall),
-            Text(_timeLine(fixture.date), style: theme.textTheme.labelSmall),
-          ],
-        );
-    }
-  }
-
-  String _dateLine(DateTime date) {
-    final now = DateTime.now();
-    final local = date.toLocal();
-    if (local.year == now.year &&
-        local.month == now.month &&
-        local.day == now.day) {
-      return 'TODAY';
-    }
-    const months = [
-      'JAN',
-      'FEB',
-      'MAR',
-      'APR',
-      'MAY',
-      'JUN',
-      'JUL',
-      'AUG',
-      'SEP',
-      'OCT',
-      'NOV',
-      'DEC',
-    ];
-    return '${local.day.toString().padLeft(2, '0')} ${months[local.month - 1]}';
-  }
-
-  String _timeLine(DateTime date) {
-    final local = date.toLocal();
-    return '${local.hour.toString().padLeft(2, '0')}:${local.minute.toString().padLeft(2, '0')}';
-  }
-}
