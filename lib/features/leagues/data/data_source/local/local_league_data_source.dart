@@ -1,5 +1,6 @@
 import 'package:soccer_life/core/entities/country/country_model.dart';
 import 'package:soccer_life/features/leagues/data/models/league_model.dart';
+import 'package:soccer_life/features/leagues/data/models/standing_model.dart';
 
 abstract class LocalLeagueDataSource {
   List<CountryModel> getCountries();
@@ -9,4 +10,8 @@ abstract class LocalLeagueDataSource {
   List<LeagueModel> getLeagues(String countryCode);
   void saveLeagues(String countryCode, List<LeagueModel> leagues);
   bool hasLeagues(String countryCode);
+
+  List<StandingModel> getStandings(int leagueId, int season);
+  void saveStandings(int leagueId, int season, List<StandingModel> standings);
+  bool hasStandings(int leagueId, int season);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soccer_life/features/leagues/domain/entity/league_entity.dart';
 import 'package:soccer_life/features/leagues/presentation/widgets/league_matches_tab.dart';
 import 'package:soccer_life/features/leagues/presentation/widgets/league_overview_tab.dart';
 import 'package:soccer_life/features/leagues/presentation/widgets/league_standings_tab.dart';
@@ -34,14 +35,14 @@ enum LeagueTabType {
 
   const LeagueTabType(this.label);
 
-  Widget buildView() {
+  Widget buildView(LeagueEntity league) {
     switch (this) {
       case LeagueTabType.overview:
         return const LeagueOverviewTab();
       case LeagueTabType.matches:
         return const LeagueMatchesTab();
       case LeagueTabType.standings:
-        return const LeagueStandingsTab();
+        return LeagueStandingsTab(league: league);
     }
   }
 }

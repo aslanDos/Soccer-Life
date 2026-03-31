@@ -10,8 +10,10 @@ import 'package:soccer_life/features/leagues/data/repository/league_repository_i
 import 'package:soccer_life/features/leagues/domain/repository/league_repository.dart';
 import 'package:soccer_life/features/leagues/domain/usecases/get_countries_usecase.dart';
 import 'package:soccer_life/features/leagues/domain/usecases/get_leagues_usecase.dart';
+import 'package:soccer_life/features/leagues/domain/usecases/get_standings_usecase.dart';
 import 'package:soccer_life/features/leagues/presentation/provider/countries_provider.dart';
 import 'package:soccer_life/features/leagues/presentation/provider/leagues_provider.dart';
+import 'package:soccer_life/features/leagues/presentation/provider/standings_provider.dart';
 import 'package:soccer_life/features/players/data/repository/player_repostiroy_impl.dart';
 import 'package:soccer_life/features/players/domain/repostiory/players_repository.dart';
 import 'package:soccer_life/features/players/presentation/provider/players_provider.dart';
@@ -59,5 +61,11 @@ Future<void> init() async {
   );
   di.registerFactory<LeaguesProvider>(
     () => LeaguesProvider(di<GetLeaguesUsecase>()),
+  );
+  di.registerLazySingleton<GetStandingsUsecase>(
+    () => GetStandingsUsecase(di<LeagueRepository>()),
+  );
+  di.registerFactory<StandingsProvider>(
+    () => StandingsProvider(di<GetStandingsUsecase>()),
   );
 }

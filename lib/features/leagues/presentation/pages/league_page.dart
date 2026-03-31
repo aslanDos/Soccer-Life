@@ -30,7 +30,7 @@ class LeaguePage extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: LeagueTabType.values
-                    .map((tab) => tab.buildView())
+                    .map((tab) => tab.buildView(league))
                     .toList(),
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:soccer_life/core/errors/failures.dart';
 import 'package:soccer_life/features/leagues/data/data_source/local/local_league_data_source.dart';
 import 'package:soccer_life/features/leagues/data/data_source/remote/remote_league_data_source.dart';
 import 'package:soccer_life/features/leagues/domain/entity/league_entity.dart';
+import 'package:soccer_life/features/leagues/domain/entity/standing_entity.dart';
 import 'package:soccer_life/features/leagues/domain/repository/league_repository.dart';
 
 class LeagueRepositoryImpl extends LeagueRepository {
@@ -33,7 +34,9 @@ class LeagueRepositoryImpl extends LeagueRepository {
   }
 
   @override
-  Future<Either<Failure, List<LeagueEntity>>> getLeagues(String countryCode) async {
+  Future<Either<Failure, List<LeagueEntity>>> getLeagues(
+    String countryCode,
+  ) async {
     if (localLeagueDataSource.hasLeagues(countryCode)) {
       return Right(localLeagueDataSource.getLeagues(countryCode));
     }
@@ -42,6 +45,28 @@ class LeagueRepositoryImpl extends LeagueRepository {
       final leagues = await remoteLeagueDataSource.getLeagues(countryCode);
       localLeagueDataSource.saveLeagues(countryCode, leagues);
       return Right(leagues);
+    } catch (e) {
+      if (e is Exception) return Left(mapExceptionToFailure(e));
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<StandingEntity>>> getStandings(
+    int leagueId,
+    int season,
+  ) async {
+    if (localLeagueDataSource.hasStandings(leagueId, season)) {
+      return Right(localLeagueDataSource.getStandings(leagueId, season));
+    }
+
+    try {
+      final standings = await remoteLeagueDataSource.getStandings(
+        leagueId,
+        season,
+      );
+      localLeagueDataSource.saveStandings(leagueId, season, standings);
+      return Right(standings);
     } catch (e) {
       if (e is Exception) return Left(mapExceptionToFailure(e));
       return Left(ServerFailure(e.toString()));

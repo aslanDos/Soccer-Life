@@ -15,9 +15,9 @@ class LeagueModel extends LeagueEntity {
     final league = json['league'] as Map<String, dynamic>;
     final country = json['country'] as Map<String, dynamic>;
     final seasons = json['seasons'] as List?;
-    final currentSeason = seasons?.lastWhere(
-      (s) => s['current'] == true,
-      orElse: () => seasons.last,
+    final currentSeason = seasons?.firstWhere(
+      (s) => s['year'] == 2023,
+      orElse: () => seasons.first,
     );
 
     return LeagueModel(
@@ -30,4 +30,24 @@ class LeagueModel extends LeagueEntity {
       season: currentSeason?['year'] as int? ?? 0,
     );
   }
+
+  // factory LeagueModel.fromJson(Map<String, dynamic> json) {
+  //   final league = json['league'] as Map<String, dynamic>;
+  //   final country = json['country'] as Map<String, dynamic>;
+  //   final seasons = json['seasons'] as List?;
+  //   final currentSeason = seasons?.lastWhere(
+  //     (s) => s['current'] == false,
+  //     orElse: () => seasons.last,
+  //   );
+
+  //   return LeagueModel(
+  //     id: league['id'] as int,
+  //     name: league['name'] as String,
+  //     countryCode: country['code'] as String? ?? '',
+  //     countryName: country['name'] as String? ?? '',
+  //     countryFlag: country['flag'] as String? ?? '',
+  //     logo: league['logo'] as String? ?? '',
+  //     season: currentSeason?['year'] as int? ?? 0,
+  //   );
+  // }
 }

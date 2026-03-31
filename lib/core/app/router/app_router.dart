@@ -53,9 +53,8 @@ class AppRouter {
                     routes: [
                       GoRoute(
                         path: AppRoutes.league,
-                        builder: (context, state) => LeaguePage(
-                          league: state.extra as LeagueEntity,
-                        ),
+                        builder: (context, state) =>
+                            LeaguePage(league: state.extra as LeagueEntity),
                       ),
                     ],
                   ),

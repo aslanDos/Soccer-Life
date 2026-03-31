@@ -30,6 +30,7 @@ class ApiClient {
         },
         onResponse: (response, handler) {
           print('✅ RESPONSE: ${response.statusCode}');
+          print('📦 BODY: ${response.data}');
           return handler.next(response);
         },
         onError: (error, handler) {
