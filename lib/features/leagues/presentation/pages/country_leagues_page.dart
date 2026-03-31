@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:soccer_life/core/di/dependency_injection.dart';
 import 'package:soccer_life/core/shared/widgets/app_list_tile.dart';
@@ -24,7 +25,7 @@ class CountryLeaguesPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(countryName),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Ionicons.arrow_back),
             onPressed: () => context.pop(),
           ),
         ),

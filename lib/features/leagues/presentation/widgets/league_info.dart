@@ -17,11 +17,12 @@ class LeagueInfo extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(name, style: theme.textTheme.headlineMedium),
+        const SizedBox(height: 4),
         Text(country, style: theme.textTheme.bodySmall),
+        const SizedBox(height: 2),
         Text(season.toString(), style: theme.textTheme.bodySmall),
       ],
     );

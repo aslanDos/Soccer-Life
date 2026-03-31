@@ -42,10 +42,6 @@ class LeagueStandingsTab extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  // margin: const EdgeInsets.symmetric(
-                  //   horizontal: 16,
-                  //   vertical: 12,
-                  // ),
                   margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surfaceContainer,

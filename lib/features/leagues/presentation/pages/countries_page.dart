@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:soccer_life/core/entities/country/country_entity.dart';
@@ -8,6 +7,7 @@ import 'package:soccer_life/core/shared/widgets/country_tile.dart';
 import 'package:soccer_life/features/favorites/presentation/provider/favorite_leagues_provider.dart';
 import 'package:soccer_life/features/leagues/domain/entity/league_entity.dart';
 import 'package:soccer_life/features/leagues/presentation/provider/countries_provider.dart';
+import 'package:soccer_life/features/leagues/presentation/widgets/league_logo.dart';
 
 class CountriesPage extends StatefulWidget {
   const CountriesPage({super.key});
@@ -63,8 +63,8 @@ class _CountriesPageState extends State<CountriesPage> {
 
         final favorites = favs.favorites;
         final items = _buildItems(provider.countries);
-        // favorites section occupies: 1 header + N tiles + 1 divider
-        final favOffset = favorites.isEmpty ? 0 : favorites.length + 2;
+        // favorites section occupies: 1 header + N tiles
+        final favOffset = favorites.isEmpty ? 0 : favorites.length + 1;
 
         return ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 8),
@@ -72,17 +72,14 @@ class _CountriesPageState extends State<CountriesPage> {
           itemBuilder: (context, index) {
             // ── Favorites section ──
             if (favorites.isNotEmpty) {
-              if (index == 0) return const _LetterHeader(letter: 'Favorites');
+              if (index == 0) {
+                return const _SectionHeader(
+                  label: 'Favorites',
+                  isFavorites: true,
+                );
+              }
               if (index <= favorites.length) {
                 return _FavoriteTile(league: favorites[index - 1]);
-              }
-              if (index == favorites.length + 1) {
-                return Divider(
-                  height: 1,
-                  indent: 60,
-                  endIndent: 60,
-                  color: theme.colorScheme.secondary,
-                );
               }
               index -= favOffset;
             }
@@ -91,7 +88,7 @@ class _CountriesPageState extends State<CountriesPage> {
             final item = items[index];
 
             if (item is _Header) {
-              return _LetterHeader(letter: item.letter);
+              return _SectionHeader(label: item.letter);
             }
 
             final country = item as CountryEntity;
@@ -127,27 +124,6 @@ class _Header {
   const _Header(this.letter);
 }
 
-class _SectionHeader extends StatelessWidget {
-  final String label;
-
-  const _SectionHeader({required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-      child: Text(
-        label.toUpperCase(),
-        style: theme.textTheme.labelSmall?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
-          letterSpacing: 0.8,
-        ),
-      ),
-    );
-  }
-}
-
 class _FavoriteTile extends StatelessWidget {
   final LeagueEntity league;
 
@@ -156,63 +132,39 @@ class _FavoriteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppListTile(
-      leading: _FlagLeading(league.countryFlag),
-      title: league.countryName,
-      subtitle: league.name,
+      leading: LeagueLogo(logoUrl: league.logo, size: 36, withBackground: false),
+      title: league.name,
+      subtitle: league.countryName,
       onTap: () =>
           context.push('/leagues/${league.countryCode}/league', extra: league),
     );
   }
 }
 
-class _FlagLeading extends StatelessWidget {
-  final String url;
+class _SectionHeader extends StatelessWidget {
+  final String label;
+  final bool isFavorites;
 
-  const _FlagLeading(this.url);
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(4),
-      child: url.isNotEmpty
-          ? SvgPicture.network(
-              url,
-              width: 36,
-              height: 24,
-              fit: BoxFit.cover,
-              placeholderBuilder: (_) => _placeholder(),
-            )
-          : _placeholder(),
-    );
-  }
-
-  Widget _placeholder() {
-    return Container(
-      width: 36,
-      height: 24,
-      color: Colors.grey.shade300,
-      child: const Icon(Icons.flag, size: 16),
-    );
-  }
-}
-
-class _LetterHeader extends StatelessWidget {
-  final String letter;
-
-  const _LetterHeader({required this.letter});
+  const _SectionHeader({required this.label, this.isFavorites = false});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    const favoritesColor = Color(0xFFF5A623);
+    final bgColor = isFavorites ? favoritesColor : theme.colorScheme.secondary;
+    final textColor = isFavorites
+        ? theme.colorScheme.onPrimary
+        : theme.colorScheme.onSecondary;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       margin: const EdgeInsets.only(top: 8, bottom: 4),
-      decoration: BoxDecoration(color: theme.colorScheme.secondary),
+      decoration: BoxDecoration(color: bgColor),
       child: Text(
-        letter,
+        label,
         style: theme.textTheme.titleSmall?.copyWith(
-          color: theme.colorScheme.onSecondary,
+          color: textColor,
           fontWeight: FontWeight.bold,
         ),
       ),

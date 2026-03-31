@@ -30,7 +30,6 @@ class ApiClient {
         },
         onResponse: (response, handler) {
           print('✅ RESPONSE: ${response.statusCode}');
-          print('📦 BODY: ${response.data}');
           return handler.next(response);
         },
         onError: (error, handler) {
@@ -58,7 +57,11 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      return await _dio.post(path, data: data, queryParameters: queryParameters);
+      return await _dio.post(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+      );
     } on DioException catch (e) {
       throw e.toAppException();
     }

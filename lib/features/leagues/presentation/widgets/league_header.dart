@@ -32,7 +32,6 @@ class LeagueHeader extends StatelessWidget {
               season: league.season,
             ),
           ),
-          //
         ],
       ),
     );
