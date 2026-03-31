@@ -14,8 +14,6 @@ class LeagueLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     final image = Image.network(
       logoUrl,
       width: size,
@@ -26,13 +24,37 @@ class LeagueLogo extends StatelessWidget {
 
     if (!withBackground) return image;
 
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: image,
-    );
+    return image;
   }
 }
+
+// class _LeagueLogo extends StatelessWidget {
+//   final String url;
+
+//   const _LeagueLogo(this.url);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ClipRRect(
+//       borderRadius: BorderRadius.circular(6),
+//       child: url.isNotEmpty
+//           ? Image.network(
+//               url,
+//               width: 36,
+//               height: 36,
+//               fit: BoxFit.contain,
+//               errorBuilder: (_, _, _) => _placeholder(),
+//             )
+//           : _placeholder(),
+//     );
+//   }
+
+//   Widget _placeholder() {
+//     return Container(
+//       width: 36,
+//       height: 36,
+//       color: Colors.grey.shade300,
+//       child: const Icon(Icons.sports_soccer, size: 20),
+//     );
+//   }
+// }

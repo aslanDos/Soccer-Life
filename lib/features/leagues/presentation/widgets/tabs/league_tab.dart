@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:soccer_life/features/leagues/domain/entity/league_entity.dart';
-import 'package:soccer_life/features/leagues/presentation/widgets/league_matches_tab.dart';
-import 'package:soccer_life/features/leagues/presentation/widgets/league_overview_tab.dart';
-import 'package:soccer_life/features/leagues/presentation/widgets/league_standings_tab.dart';
+import 'package:soccer_life/features/leagues/presentation/widgets/tabs/league_matches_tab.dart';
+import 'package:soccer_life/features/leagues/presentation/widgets/tabs/league_overview_tab.dart';
+import 'package:soccer_life/features/leagues/presentation/widgets/tabs/league_standings_tab.dart';
 
 class LeagueTab extends StatelessWidget implements PreferredSizeWidget {
   const LeagueTab({super.key});
@@ -35,14 +35,9 @@ enum LeagueTabType {
 
   const LeagueTabType(this.label);
 
-  Widget buildView(LeagueEntity league) {
-    switch (this) {
-      case LeagueTabType.overview:
-        return const LeagueOverviewTab();
-      case LeagueTabType.matches:
-        return const LeagueMatchesTab();
-      case LeagueTabType.standings:
-        return LeagueStandingsTab(league: league);
-    }
-  }
+  Widget buildView(LeagueEntity league) => switch (this) {
+    LeagueTabType.overview => LeagueOverviewTab(league: league),
+    LeagueTabType.matches => LeagueMatchesTab(league: league),
+    LeagueTabType.standings => LeagueStandingsTab(league: league),
+  };
 }

@@ -4,6 +4,7 @@ import 'package:soccer_life/core/errors/exception_failure_mapper.dart';
 import 'package:soccer_life/core/errors/failures.dart';
 import 'package:soccer_life/features/leagues/data/data_source/local/local_league_data_source.dart';
 import 'package:soccer_life/features/leagues/data/data_source/remote/remote_league_data_source.dart';
+import 'package:soccer_life/features/leagues/domain/entity/fixture_entity.dart';
 import 'package:soccer_life/features/leagues/domain/entity/league_entity.dart';
 import 'package:soccer_life/features/leagues/domain/entity/standing_entity.dart';
 import 'package:soccer_life/features/leagues/domain/repository/league_repository.dart';
@@ -67,6 +68,28 @@ class LeagueRepositoryImpl extends LeagueRepository {
       );
       localLeagueDataSource.saveStandings(leagueId, season, standings);
       return Right(standings);
+    } catch (e) {
+      if (e is Exception) return Left(mapExceptionToFailure(e));
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<FixtureEntity>>> getFixtures(
+    int leagueId,
+    int season,
+  ) async {
+    if (localLeagueDataSource.hasFixtures(leagueId, season)) {
+      return Right(localLeagueDataSource.getFixtures(leagueId, season));
+    }
+
+    try {
+      final fixtures = await remoteLeagueDataSource.getFixtures(
+        leagueId,
+        season,
+      );
+      localLeagueDataSource.saveFixtures(leagueId, season, fixtures);
+      return Right(fixtures);
     } catch (e) {
       if (e is Exception) return Left(mapExceptionToFailure(e));
       return Left(ServerFailure(e.toString()));

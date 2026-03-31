@@ -8,4 +8,5 @@ class ApiEndpoints {
   static const String players = '/players';
   static const String squads = '/players/squads';
   static const String standings = '/standings';
+  static const String fixtures = '/fixtures';
 }

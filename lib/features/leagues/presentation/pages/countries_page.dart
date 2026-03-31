@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:soccer_life/core/entities/country/country_entity.dart';
-import 'package:soccer_life/core/shared/widgets/app_list_tile.dart';
-import 'package:soccer_life/core/shared/widgets/country_tile.dart';
+import 'package:soccer_life/features/leagues/presentation/widgets/list_tiles/country_tile.dart';
+import 'package:soccer_life/features/leagues/presentation/widgets/list_tiles/league_tile.dart';
 import 'package:soccer_life/features/favorites/presentation/provider/favorite_leagues_provider.dart';
-import 'package:soccer_life/features/leagues/domain/entity/league_entity.dart';
 import 'package:soccer_life/features/leagues/presentation/provider/countries_provider.dart';
-import 'package:soccer_life/features/leagues/presentation/widgets/league_logo.dart';
 
 class CountriesPage extends StatefulWidget {
   const CountriesPage({super.key});
@@ -79,7 +77,15 @@ class _CountriesPageState extends State<CountriesPage> {
                 );
               }
               if (index <= favorites.length) {
-                return _FavoriteTile(league: favorites[index - 1]);
+                return LeagueTile(
+                  league: favorites[index - 1],
+                  onTap: () => context.push(
+                    '/leagues/${favorites[index - 1].countryCode}/league',
+                    extra: favorites[index - 1],
+                  ),
+                  includeCountryName: true,
+                );
+                // return _FavoriteTile(league: favorites[index - 1]);
               }
               index -= favOffset;
             }
@@ -122,23 +128,6 @@ class _CountriesPageState extends State<CountriesPage> {
 class _Header {
   final String letter;
   const _Header(this.letter);
-}
-
-class _FavoriteTile extends StatelessWidget {
-  final LeagueEntity league;
-
-  const _FavoriteTile({required this.league});
-
-  @override
-  Widget build(BuildContext context) {
-    return AppListTile(
-      leading: LeagueLogo(logoUrl: league.logo, size: 36, withBackground: false),
-      title: league.name,
-      subtitle: league.countryName,
-      onTap: () =>
-          context.push('/leagues/${league.countryCode}/league', extra: league),
-    );
-  }
 }
 
 class _SectionHeader extends StatelessWidget {

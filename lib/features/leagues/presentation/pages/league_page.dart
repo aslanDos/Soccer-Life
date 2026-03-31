@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:soccer_life/features/favorites/presentation/provider/favorite_leagues_provider.dart';
 import 'package:soccer_life/features/leagues/domain/entity/league_entity.dart';
 import 'package:soccer_life/features/leagues/presentation/widgets/league_header.dart';
-import 'package:soccer_life/features/leagues/presentation/widgets/league_tab.dart';
+import 'package:soccer_life/features/leagues/presentation/widgets/tabs/league_tab.dart';
 
 class LeaguePage extends StatelessWidget {
   final LeagueEntity league;

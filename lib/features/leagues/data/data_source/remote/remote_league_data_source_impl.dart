@@ -3,6 +3,7 @@ import 'package:soccer_life/core/network/api_client.dart';
 import 'package:soccer_life/core/network/api_endpoints.dart';
 import 'package:soccer_life/core/network/api_response.dart';
 import 'package:soccer_life/features/leagues/data/data_source/remote/remote_league_data_source.dart';
+import 'package:soccer_life/features/leagues/data/models/fixture_model.dart';
 import 'package:soccer_life/features/leagues/data/models/league_model.dart';
 import 'package:soccer_life/features/leagues/data/models/standing_model.dart';
 
@@ -55,5 +56,17 @@ class RemoteLeagueDataSourceImpl extends RemoteLeagueDataSource {
     return group
         .map((e) => StandingModel.fromJson(e as Map<String, dynamic>))
         .toList();
+  }
+
+  @override
+  Future<List<FixtureModel>> getFixtures(int leagueId, int season) async {
+    final response = await apiClient.get(
+      ApiEndpoints.fixtures,
+      queryParameters: {'league': leagueId, 'season': season},
+    );
+    return ApiResponse.fromJson(
+      response.data as Map<String, dynamic>,
+      FixtureModel.fromJson,
+    ).data;
   }
 }

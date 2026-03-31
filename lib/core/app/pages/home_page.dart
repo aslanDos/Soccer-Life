@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:soccer_life/core/shared/widgets/custom_appbar_widget.dart';
+import 'package:soccer_life/core/shared/widgets/appbar_widget.dart';
 import 'package:soccer_life/core/shared/widgets/drawer/drawer.dart';
 
 class HomePage extends StatelessWidget {

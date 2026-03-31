@@ -20,5 +20,13 @@ class LeagueEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, name, countryCode, countryName, countryFlag, logo, season];
+  List<Object?> get props => [
+    id,
+    name,
+    countryCode,
+    countryName,
+    countryFlag,
+    logo,
+    season,
+  ];
 }

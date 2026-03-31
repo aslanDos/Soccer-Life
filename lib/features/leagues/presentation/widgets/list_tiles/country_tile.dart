@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:soccer_life/core/entities/country/country_entity.dart';
 import 'package:soccer_life/core/shared/widgets/app_list_tile.dart';
 
@@ -11,11 +12,26 @@ class CountryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return AppListTile(
-      leading: _Flag(country.flagUrl),
-      title: country.name,
-      subtitle: country.code.isNotEmpty ? country.code : null,
       onTap: onTap,
+      child: Row(
+        children: [
+          _Flag(country.flagUrl),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(country.name, style: theme.textTheme.headlineSmall),
+                Text(country.code, style: theme.textTheme.bodySmall),
+              ],
+            ),
+          ),
+          Icon(Ionicons.chevron_forward, color: theme.colorScheme.onSecondary),
+        ],
+      ),
     );
   }
 }
@@ -32,8 +48,8 @@ class _Flag extends StatelessWidget {
       child: url != null && url!.isNotEmpty
           ? SvgPicture.network(
               url!,
-              width: 36,
-              height: 24,
+              width: 25,
+              height: 20,
               fit: BoxFit.cover,
               placeholderBuilder: (_) => _placeholder(),
             )
@@ -43,8 +59,8 @@ class _Flag extends StatelessWidget {
 
   Widget _placeholder() {
     return Container(
-      width: 36,
-      height: 24,
+      width: 25,
+      height: 20,
       color: Colors.grey.shade300,
       child: const Icon(Icons.flag, size: 16),
     );
